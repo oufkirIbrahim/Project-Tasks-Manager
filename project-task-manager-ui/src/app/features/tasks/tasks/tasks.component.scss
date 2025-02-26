@@ -212,7 +212,7 @@
     }
 
     &.active {
-      background-color: var(--hover-bg, #f0f0f0);;
+      background-color: #f1f5f9 !important;
       border-color: var(--primary-color, #6200ee);
       color: #333333;
     }
@@ -254,5 +254,41 @@
     font-size: 48px;
     margin-bottom: 16px;
     opacity: 0.5;
+  }
+}
+
+/* Add to your tasks.component.scss */
+.search-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--primary-light, rgba(98, 0, 238, 0.05));
+  border-radius: 4px;
+  padding: 12px 16px;
+  margin-bottom: 24px;
+
+  .search-label {
+    font-weight: 500;
+    color: var(--primary-color, #6200ee);
+  }
+
+  .clear-search-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid var(--primary-color, #6200ee);
+    background-color: transparent;
+    color: var(--primary-color, #6200ee);
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(98, 0, 238, 0.05);
+    }
+
+    .material-icons {
+      font-size: 18px;
+    }
   }
 }

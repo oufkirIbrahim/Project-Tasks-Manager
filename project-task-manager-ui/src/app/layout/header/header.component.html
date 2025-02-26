@@ -11,8 +11,11 @@
   <div class="search-bar">
     <mat-form-field appearance="outline" class="search-field">
       <mat-label>Search</mat-label>
-      <input matInput placeholder="Search tasks or projects...">
-      <mat-icon matSuffix>search</mat-icon>
+      <input matInput placeholder="Search tasks or projects..." [formControl]="searchControl">
+      <button *ngIf="searchControl.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-icon *ngIf="!searchControl.value" matSuffix>search</mat-icon>
     </mat-form-field>
   </div>
 

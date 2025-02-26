@@ -6,7 +6,15 @@
     </button>
   </div>
 
-  <div class="filter-tabs">
+  <!-- Show search indicator if search is active -->
+  <div *ngIf="searchTerm" class="search-indicator">
+    <span class="search-label">Search results for: "{{ searchTerm }}"</span>
+    <button class="clear-search-btn" (click)="changeFilter(currentFilter)">
+      <span class="material-icons">close</span> Clear search
+    </button>
+  </div>
+
+  <div class="filter-tabs" *ngIf="!searchTerm">
     <button
       [class.active]="currentFilter === 'all'"
       (click)="changeFilter('all')">
@@ -36,7 +44,8 @@
 
     <div *ngIf="!loading && tasks.length === 0" class="empty-state">
       <span class="material-icons">assignment</span>
-      <p>No tasks found. Create a new task to get started.</p>
+      <p *ngIf="!searchTerm">No tasks found. Create a new task to get started.</p>
+      <p *ngIf="searchTerm">No tasks match your search criteria "{{ searchTerm }}".</p>
     </div>
 
     <table *ngIf="!loading && tasks.length > 0" class="tasks-table">
