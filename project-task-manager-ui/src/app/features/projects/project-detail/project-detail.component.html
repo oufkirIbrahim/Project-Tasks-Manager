@@ -1,0 +1,133 @@
+<div class="route-animation">
+  <div class="page-header">
+    <div class="back-button">
+      <button mat-button color="primary" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon> Back to Projects
+      </button>
+    </div>
+
+    <div class="actions">
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Project actions">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="openProjectDialog()">
+          <mat-icon>edit</mat-icon>
+          <span>Edit Project</span>
+        </button>
+        <button mat-menu-item (click)="confirmDeleteProject()">
+          <mat-icon>delete</mat-icon>
+          <span>Delete Project</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+
+  <div *ngIf="!loading && project" class="project-container">
+    <mat-card class="project-header-card">
+      <mat-card-content>
+        <div class="project-header">
+          <div class="project-title">
+            <h1>{{project.name}}</h1>
+            <p class="project-description">{{project.description}}</p>
+          </div>
+          <div class="project-meta">
+            <div class="project-dates">
+              <div class="date-item">
+                <span class="date-label">Start Date:</span>
+                <span class="date-value">{{project.startDate | date:'mediumDate'}}</span>
+              </div>
+              <div class="date-item" *ngIf="project.endDate">
+                <span class="date-label">End Date:</span>
+                <span class="date-value">{{project.endDate | date:'mediumDate'}}</span>
+              </div>
+            </div>
+            <div class="project-stats">
+              <div class="stat-item">
+                <span class="stat-value">{{projectTasks.length}}</span>
+                <span class="stat-label">Tasks</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value">{{completedTasksCount}}</span>
+                <span class="stat-label">Completed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="project-content-card">
+      <mat-card-content>
+        <mat-tab-group>
+          <!-- Tasks Tab -->
+          <mat-tab label="Tasks">
+            <div class="task-actions">
+              <button mat-raised-button color="primary" (click)="openCreateTaskDialog()">
+                <mat-icon>add</mat-icon> Create New Task
+              </button>
+            </div>
+
+            <div *ngIf="projectTasks.length > 0; else noTasks">
+              <table mat-table [dataSource]="projectTasks" class="mat-elevated-table">
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef> Task Title </th>
+                  <td mat-cell *matCellDef="let task"> {{ task.title }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef> Status </th>
+                  <td mat-cell *matCellDef="let task">
+                    <mat-chip [ngClass]="getStatusClass(task.status)">
+                      {{ task.status }}
+                    </mat-chip>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="dueDate">
+                  <th mat-header-cell *matHeaderCellDef> Due Date </th>
+                  <td mat-cell *matCellDef="let task"> {{ task.dueDate | date:'mediumDate' }} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="['name', 'status', 'dueDate']"></tr>
+                <tr mat-row *matRowDef="let row; columns: ['name', 'status', 'dueDate'];"></tr>
+              </table>
+            </div>
+
+            <ng-template #noTasks>
+              <div class="no-tasks-container">
+                <p>No tasks available for this project.</p>
+                <button mat-stroked-button color="primary" (click)="openCreateTaskDialog()">
+                  Create Your First Task
+                </button>
+              </div>
+            </ng-template>
+          </mat-tab>
+
+          <!-- Overview Tab -->
+          <mat-tab label="Overview">
+            <div class="overview-container">
+              <p><strong>Project Name:</strong> {{ project?.name }}</p>
+              <p><strong>Description:</strong> {{ project?.description }}</p>
+              <p><strong>Start Date:</strong> {{ project?.startDate | date:'mediumDate' }}</p>
+              <p><strong>End Date:</strong> {{ project?.endDate ? (project?.endDate | date:'mediumDate') : 'N/A' }}</p>
+              <p><strong>Progress:</strong> {{ projectProgress }}%</p>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+
+  <div *ngIf="!loading && !project" class="not-found">
+    <mat-icon>error_outline</mat-icon>
+    <h2>Project Not Found</h2>
+    <p>The project you're looking for doesn't exist or has been deleted.</p>
+    <button mat-raised-button color="primary" routerLink="/projects">Go to Projects</button>
+  </div>
+</div>

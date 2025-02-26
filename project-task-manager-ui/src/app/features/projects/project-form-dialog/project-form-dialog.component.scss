@@ -1,0 +1,19 @@
+.full-width {
+  width: 100%;
+}
+
+.date-fields {
+  display: flex;
+  gap: 16px;
+}
+
+.date-fields mat-form-field {
+  flex: 1;
+}
+
+@media (max-width: 600px) {
+  .date-fields {
+    flex-direction: column;
+    gap: 0;
+  }
+}

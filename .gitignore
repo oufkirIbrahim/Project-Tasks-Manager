@@ -1,0 +1,23 @@
+# IDE or editor files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Node modules (if there's a root package.json or dependencies)
+node_modules/
+
+# Build outputs for any root-level build tools
+dist/
+target/
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# OS-specific files
+*.swp

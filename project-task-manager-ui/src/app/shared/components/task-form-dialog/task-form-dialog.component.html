@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Edit Task' : 'Create New Task' }}</h2>
+<div mat-dialog-content>
+  <form [formGroup]="taskForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" placeholder="Task title">
+      <mat-error *ngIf="taskForm.controls['title'].hasError('required')">
+        Title is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" rows="3" placeholder="Task description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="PENDING">Pending</mat-option>
+        <mat-option value="IN_PROGRESS">In Progress</mat-option>
+        <mat-option value="COMPLETED">Completed</mat-option>
+        <mat-option value="CANCELLED">Cancelled</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Due Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dueDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div class="form-info">
+      <p>Project: <strong>{{ data.projectName }}</strong></p>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="taskForm.invalid || loading"
+    (click)="onSubmit()">
+    <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+    <span *ngIf="!loading">{{ isEditMode ? 'Update' : 'Create' }}</span>
+  </button>
+</div>

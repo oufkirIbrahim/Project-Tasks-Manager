@@ -1,0 +1,71 @@
+<div class="task-form-container">
+  <div class="form-header">
+    <h1>{{ isEditMode ? 'Edit Task' : 'Create New Task' }}</h1>
+    <button class="btn-secondary" routerLink="/tasks">
+      <span class="material-icons">arrow_back</span> Back to Tasks
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loading-spinner">
+    <span class="material-icons rotating">refresh</span> Loading...
+  </div>
+
+  <form *ngIf="!loading" [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="task-form">
+    <div class="form-group">
+      <label for="title">Title *</label>
+      <input
+        id="title"
+        type="text"
+        formControlName="title"
+        placeholder="Enter task title">
+      <div *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched" class="error-message">
+        <span *ngIf="taskForm.get('title')?.errors?.['required']">Title is required</span>
+        <span *ngIf="taskForm.get('title')?.errors?.['maxlength']">Title must be less than 100 characters</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description *</label>
+      <textarea
+        id="description"
+        formControlName="description"
+        rows="4"
+        placeholder="Enter task description"></textarea>
+      <div *ngIf="taskForm.get('description')?.invalid && taskForm.get('description')?.touched" class="error-message">
+        <span *ngIf="taskForm.get('description')?.errors?.['required']">Description is required</span>
+      </div>
+    </div>
+
+    <div class="form-group" *ngIf="isEditMode">
+      <label for="status">Status</label>
+      <select id="status" formControlName="status">
+        <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="dueDate">Due Date</label>
+      <input id="dueDate" type="date" formControlName="dueDate">
+    </div>
+
+    <div class="form-group">
+      <label for="projectId">Project *</label>
+      <select id="projectId" formControlName="projectId" [disabled]="isEditMode">
+        <option *ngFor="let project of projects" [value]="project.id">
+          {{ project.name }}
+        </option>
+      </select>
+      <div *ngIf="taskForm.get('projectId')?.invalid && taskForm.get('projectId')?.touched" class="error-message">
+        <span *ngIf="taskForm.get('projectId')?.errors?.['required']">Please select a project</span>
+      </div>
+    </div>
+
+
+    <div class="form-actions">
+      <button type="button" class="btn-secondary" routerLink="/tasks">Cancel</button>
+      <button type="submit" class="btn-primary" [disabled]="taskForm.invalid">
+        {{ isEditMode ? 'Update Task' : 'Create Task' }}
+      </button>
+    </div>
+  </form>
+</div>

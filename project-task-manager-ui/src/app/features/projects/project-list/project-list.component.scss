@@ -1,0 +1,83 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-title {
+  margin: 0;
+  font-weight: 400;
+  color: #333;
+}
+
+.data-card {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table-container {
+  position: relative;
+  min-height: 400px;
+}
+
+.loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.projects-table {
+  width: 100%;
+}
+
+.truncate {
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.project-name {
+  color: #3f51b5;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.project-name:hover {
+  text-decoration: underline;
+}
+
+.no-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 0;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.no-data mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+}
+
+.no-data p {
+  margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .projects-table {
+    display: block;
+    overflow-x: auto;
+  }
+}

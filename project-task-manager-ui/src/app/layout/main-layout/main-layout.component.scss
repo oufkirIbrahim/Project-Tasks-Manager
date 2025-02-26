@@ -1,0 +1,36 @@
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.sidenav-container {
+  flex: 1;
+  margin-top: 64px;
+}
+
+.sidebar-wrapper {
+  width: 250px;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 64px);
+}
+
+.content {
+  flex: 1;
+  padding: 24px;
+  background-color: #f7f9fc;
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 16px;
+  }
+}

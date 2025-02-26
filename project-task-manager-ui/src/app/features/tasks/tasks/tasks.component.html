@@ -1,0 +1,173 @@
+<div class="tasks-container">
+  <div class="tasks-header">
+    <h1>Tasks</h1>
+    <button class="btn-primary" routerLink="/tasks/new">
+      <span class="material-icons">add</span> New Task
+    </button>
+  </div>
+
+  <div class="filter-tabs">
+    <button
+      [class.active]="currentFilter === 'all'"
+      (click)="changeFilter('all')">
+      <span class="material-icons">list</span> All Tasks
+    </button>
+    <button
+      [class.active]="currentFilter === 'pending'"
+      (click)="changeFilter('pending')">
+      <span class="material-icons">pending</span> Pending
+    </button>
+    <button
+      [class.active]="currentFilter === 'in-progress'"
+      (click)="changeFilter('in-progress')">
+      <span class="material-icons">hourglass_empty</span> In Progress
+    </button>
+    <button
+      [class.active]="currentFilter === 'completed'"
+      (click)="changeFilter('completed')">
+      <span class="material-icons">check_circle</span> Completed
+    </button>
+  </div>
+
+  <div class="tasks-list-container">
+    <div *ngIf="loading" class="loading-spinner">
+      <span class="material-icons rotating">refresh</span> Loading...
+    </div>
+
+    <div *ngIf="!loading && tasks.length === 0" class="empty-state">
+      <span class="material-icons">assignment</span>
+      <p>No tasks found. Create a new task to get started.</p>
+    </div>
+
+    <table *ngIf="!loading && tasks.length > 0" class="tasks-table">
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Project</th>
+        <th>Status</th>
+        <th>Due Date</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let task of tasks">
+        <td>{{ task.title }}</td>
+        <td>{{ task.description }}</td>
+        <td>
+          <a *ngIf="task.projectId && projects[task.projectId]" [routerLink]="['/projects', task.projectId]">
+            {{ projects[task.projectId].name }}
+          </a>
+          <span *ngIf="!task.projectId || !projects[task.projectId]">-</span>
+        </td>
+        <td>
+            <span class="status-badge" [ngClass]="getStatusClass(task.status)">
+              {{ task.status }}
+            </span>
+        </td>
+        <td>{{ task.dueDate | date:'mediumDate' }}</td>
+        <td class="actions">
+          <button class="btn-icon" routerLink="/tasks/{{ task.id }}">
+            <span class="material-icons">visibility</span>
+          </button>
+          <button class="btn-icon" routerLink="/tasks/{{ task.id }}/edit">
+            <span class="material-icons">edit</span>
+          </button>
+          <button class="btn-icon" (click)="confirmDeleteTask(task)">
+            <span class="material-icons">delete</span>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="!loading && totalPages > 1" class="pagination">
+      <button
+        class="pagination-btn"
+        [disabled]="currentPage === 0"
+        (click)="changePage(0)"
+        title="First Page">
+        <span class="material-icons">first_page</span>
+      </button>
+
+      <button
+        class="pagination-btn"
+        [disabled]="currentPage === 0"
+        (click)="changePage(currentPage - 1)"
+        title="Previous Page">
+        <span class="material-icons">chevron_left</span>
+      </button>
+
+      <ng-container *ngIf="totalPages <= 7">
+        <button *ngFor="let page of getPageArray(totalPages); let i = index"
+                class="page-number"
+                [class.active]="currentPage === i"
+                (click)="changePage(i)">
+          {{ i + 1 }}
+        </button>
+      </ng-container>
+
+      <ng-container *ngIf="totalPages > 7">
+        <!-- First page -->
+        <button
+          class="page-number"
+          [class.active]="currentPage === 0"
+          (click)="changePage(0)">
+          1
+        </button>
+
+        <!-- Ellipsis for pages before current page when needed -->
+        <span *ngIf="currentPage > 3" class="ellipsis">...</span>
+
+        <!-- Pages around current page -->
+        <ng-container *ngFor="let page of getVisiblePageRange(); let i = index">
+          <button
+            *ngIf="page !== 0 && page !== totalPages - 1"
+            class="page-number"
+            [class.active]="currentPage === page"
+            (click)="changePage(page)">
+            {{ page + 1 }}
+          </button>
+        </ng-container>
+
+        <!-- Ellipsis for pages after current page when needed -->
+        <span *ngIf="currentPage < totalPages - 4" class="ellipsis">...</span>
+
+        <!-- Last page -->
+        <button
+          class="page-number"
+          [class.active]="currentPage === totalPages - 1"
+          (click)="changePage(totalPages - 1)">
+          {{ totalPages }}
+        </button>
+      </ng-container>
+
+      <button
+        class="pagination-btn"
+        [disabled]="currentPage === totalPages - 1"
+        (click)="changePage(currentPage + 1)"
+        title="Next Page">
+        <span class="material-icons">chevron_right</span>
+      </button>
+
+      <button
+        class="pagination-btn"
+        [disabled]="currentPage === totalPages - 1"
+        (click)="changePage(totalPages - 1)"
+        title="Last Page">
+        <span class="material-icons">last_page</span>
+      </button>
+
+      <div class="page-size-selector">
+        <span>Show</span>
+        <select [ngModel]="pageSize" (ngModelChange)="changePageSize($event)">
+          <option [value]="5">5</option>
+          <option [value]="10">10</option>
+          <option [value]="25">25</option>
+          <option [value]="50">50</option>
+        </select>
+        <span>items</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: project-task-manager-api
+  datasource:
+    url: jdbc:postgresql://localhost:5432/project_task_manager_db
+    username: task_manager_user
+    password: task_manager_user
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+server:
+  servlet:
+    context-path: /api/v1/

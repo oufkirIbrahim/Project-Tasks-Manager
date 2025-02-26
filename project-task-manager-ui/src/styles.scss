@@ -1,0 +1,72 @@
+/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Dashboard Card Styles */
+.dashboard-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Status Badge Colors */
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.status-pending {
+  background-color: #fff8e1;
+  color: #ffa000;
+}
+
+.status-in-progress {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-completed {
+  background-color: #e8f5e9;
+  color: #4caf50;
+}
+
+/* Animation for page transitions */
+.route-animation {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive utilities */
+.hide-on-mobile {
+  @media (max-width: 768px) {
+    display: none !important;
+  }
+}
+
+.show-on-mobile {
+  @media (min-width: 769px) {
+    display: none !important;
+  }
+}

@@ -1,0 +1,46 @@
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #fafafa;
+}
+
+.sidebar-header {
+  padding: 16px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #3f51b5;
+}
+
+.active-link {
+  background-color: rgba(63, 81, 181, 0.1);
+  color: #3f51b5;
+}
+
+mat-expansion-panel {
+  background: transparent;
+  box-shadow: none;
+}
+
+::ng-deep .mat-expansion-panel-body {
+  padding: 0 !important;
+}
+
+mat-expansion-panel-header mat-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+}
