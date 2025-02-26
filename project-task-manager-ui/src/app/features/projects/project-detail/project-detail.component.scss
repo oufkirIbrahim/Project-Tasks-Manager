@@ -390,30 +390,34 @@
 }
 
 /* Status chip styles */
-.status-completed {
-  background-color: #4CAF50;
-  color: white;
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+
+  &.status-pending {
+    background-color: #ffecb3;
+    color: #bf8f00;
+  }
+
+  &.status-in-progress {
+    background-color: #e3f2fd;
+    color: #1565c0;
+  }
+
+  &.status-completed {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+  &.status-default {
+    background-color: #9E9E9E;
+    color: white;
+  }
 }
 
-.status-in-progress {
-  background-color: #2196F3;
-  color: white;
-}
 
-.status-pending {
-  background-color: #FF9800;
-  color: white;
-}
-
-.status-cancelled {
-  background-color: #F44336;
-  color: white;
-}
-
-.status-default {
-  background-color: #9E9E9E;
-  color: white;
-}
   width: 100%;
   margin-top: 16px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
