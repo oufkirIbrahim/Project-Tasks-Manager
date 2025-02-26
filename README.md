@@ -2,7 +2,7 @@
 
 A web application to manage tasks within projects, built using a Spring Boot backend (`project-task-manager-api`) and an Angular frontend (`project-task-manager-ui`). This application allows users to create, update, and manage tasks within specific projects. It includes features such as task status management and due date tracking.
 
-https://github.com/user-attachments/assets/77d60f62-394d-4474-98b2-54aab55653a2
+[https://github.com/user-attachments/assets/77d60f62-394d-4474-98b2-54aab55653a2](https://github.com/user-attachments/assets/695c7c33-89b2-4317-9cba-e3954a571eec)
 
 ## Table of Contents
 
